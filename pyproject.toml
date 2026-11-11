@@ -1,0 +1,27 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "blog-figure-style"
+version = "0.1.0"
+description = "Matplotlib colors and styling for the Blog Figure Design System"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT OR Apache-2.0"
+authors = [{ name = "akitenkrad" }]
+dependencies = ["matplotlib>=3.8"]
+
+[project.urls]
+Repository = "https://github.com/akitenkrad/blog-figure-style"
+
+[dependency-groups]
+dev = ["pytest", "pyyaml"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/blog_figure_style"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = ["-ra", "--basetemp=.pytest-tmp"]

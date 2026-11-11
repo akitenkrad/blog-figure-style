@@ -1,0 +1,98 @@
+# blog-figure-style.yaml
+meta:
+  default: editorial_minimal
+  usage:
+    editorial_minimal: 通常記事・思索系・論文紹介 (標準)
+    blueprint:         設計図・アーキテクチャ・低レイヤ / セキュリティ
+    neobrutalism:      OGP・告知・一覧で目を引かせたいとき
+    isometric:         構成図・データレイク・空間的な階層
+    terminal:          CLI 操作・Rust ツール・実行ログの提示
+
+semantics:
+  normal:    構造・通常ノードは中立色 (ink / gray)
+  emphasis:  強調・異常・重要経路は accent 1色のみ
+  numerals:  手順番号は faint なセリフ数字 (01, 02, ...)
+  connector: 矢印は始点・終点とも箱の縁に接続．ループ/戻り矢印も終点を入口箱の縁へ (手前で止め・突き抜け・余白で横止めしない)
+  rule:      1図につき accent は1箇所に絞る
+
+styles:
+  editorial_minimal:        # ← 主軸
+    palette:
+      bg:          "#fcfbf8"
+      ink:         "#2b2926"   # 主線・主テキスト
+      ink_sub:     "#8a8579"   # 補助テキスト
+      hair:        "#d8d3c8"   # ヘアライン・罫線
+      faint:       "#cdc7ba"   # セリフ数字など
+      accent:      "#d94f30"   # 朱 (強調 / 異常 / 重要)
+      accent_dk:   "#b03c22"   # accent テキスト
+      accent_tint: "#f6e3dd"   # accent の淡塗り
+      row_faint:   "#ece8df"   # 表の薄い行罫
+      neutral_fill: "#e4dfd4"  # 中立カテゴリの淡塗り (3 値の塗り分けなど．accent_tint の対)
+    palette_dark:              # Zenn html-embed 専用 (data-theme="dark" のとき)．画像 (SVG/PNG/JPG) では使わない
+      bg:          "#1f1e1b"   # 対 ink 13.5:1
+      ink:         "#ebe7de"
+      ink_sub:     "#a39d90"   # 対 bg 6.2:1
+      hair:        "#4a463f"
+      faint:       "#5f5a50"
+      accent:      "#ef6a4c"   # 対 bg 5.4:1
+      accent_dk:   "#f28c72"   # accent テキスト．対 bg 7.0:1，対 accent_tint 5.3:1
+      accent_tint: "#4a2a21"
+      row_faint:   "#2c2a26"
+      neutral_fill: "#3a3732"
+    typography:
+      numeral:  "Georgia, serif / 24px"               # 連番
+      caption:  "Georgia, serif italic / 13px (ink_sub)"  # 図見出し
+      label:    "sans-serif / 14px"
+      sublabel: "sans-serif / 11px (ink_sub)"
+    stroke:        { hairline: 1, node_ring: 1.5, accent: 1.5 }
+    corner_radius: 0
+    fill:          none        # 原則ベタ塗りせず線と余白で構成
+    shadow:        none
+    spacing:       generous    # data-ink 比を上げ余白を最大化
+
+  blueprint:
+    palette: { bg: "#0b2031", grid: "#1d4763", frame: "#3a7c96",
+               stroke: "#58c5dd", text: "#d6f2f7", sub: "#6fb9cd", accent: "#ffd166" }
+    typography: { label: "sans / 14px", sublabel: "ui-monospace / 11px (英字)",
+                  title: "ui-monospace / 11px / letter-spacing:3 / 大文字" }
+    stroke:        { box: 1, connector: "1 dashed 4 3", frame: 0.75 }
+    corner_radius: 0
+    extras:        [方眼パターン, 角トンボ, 二重枠線]
+
+  neobrutalism:
+    palette: { bg: "#faf3e0", border: "#1a1a1a", shadow: "#1a1a1a",
+               fills: ["#ffe14d", "#9bd1e5", "#c3f0ca", "#ff8c66"], accent: "#ff8c66" }
+    typography: { label: "sans / 15px / 700", sublabel: "sans / 11px / 700 (同系暗色)" }
+    stroke:        { border: 3, connector: 3 }
+    shadow:        { type: hard, offset: "+7,+7", blur: 0 }
+    corner_radius: 0
+
+  isometric:
+    palette: { bg: "#f4f6fb",
+               block_top: "#9bc4f0", block_left: "#4d8fd6", block_right: "#2f6bb0", text: "#0c447c",
+               accent_top: "#f7c873", accent_left: "#e09a2e", accent_right: "#b9781b", accent_text: "#663806",
+               connector: "#5b6b7a" }
+    projection: { ratio: "幅:高さ = 2:1", tile_half_w: 50, tile_height: 25, depth: 18,
+                  step: "cx += 160, cy += 28" }
+    typography: { label: "sans / 13px (天面中央)", sublabel: "ui-monospace / 10px (天面上)" }
+
+  terminal:                   # ← 副系統に追加
+    palette:
+      bg:           "#15161e"   # ウィンドウ本体
+      titlebar:     "#23252f"   # タイトルバー
+      title_text:   "#8b90a0"
+      text:         "#c9d1d9"   # 既定テキスト
+      green:        "#3fb950"   # プロンプト / 成功
+      cyan:         "#56d4dd"   # パス / 矢印
+      amber:        "#e3b341"   # 警告
+      red:          "#f85149"   # accent (アラート / 異常)
+      gray:         "#6e7681"   # コメント / ログ
+      cell_bg:      "#1c1e28"   # チップ背景
+      cell_border:  "#30363d"
+      dots:         ["#ff5f56", "#ffbd2e", "#27c93f"]  # 信号機ドット (赤/黄/緑)
+    typography:
+      mono: "JetBrains Mono / 13px (英字), 日本語はシステムフォントへフォールバック"
+    stroke:        { window_border: 1, cell_border: 1 }
+    corner_radius: { window: 10, cell: 4 }
+    cursor_blink:  "1s step-end (点滅カーソル)"
+    extras:        [ウィンドウ装飾 (信号機ドット), プロンプト記号, ステータス行, 点滅カーソル]
